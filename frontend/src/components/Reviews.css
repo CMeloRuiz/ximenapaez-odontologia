@@ -1,0 +1,133 @@
+.reviews {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--white) 0%, var(--ivory) 100%);
+}
+
+.reviews > .wrap {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Calificación (solo si hay cifra verificada) ───────────────────────── */
+
+.reviews__score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: clamp(2rem, 1.5rem + 1.5vw, 3rem);
+}
+
+.reviews__score-value {
+  font-family: var(--font-serif);
+  font-size: clamp(2.6rem, 2rem + 2.2vw, 3.8rem);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--gold-deep);
+}
+
+.reviews__score-meta {
+  font-size: 0.84rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.02em;
+}
+
+/* ── Estrellas ─────────────────────────────────────────────────────────── */
+
+.reviews__stars {
+  display: inline-flex;
+  gap: 0.16rem;
+  color: var(--gold);
+}
+
+.reviews__stars--card {
+  margin-bottom: 0.9rem;
+}
+
+/* ── Tarjetas ──────────────────────────────────────────────────────────── */
+
+.reviews__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: clamp(1rem, 0.6rem + 1.4vw, 1.75rem);
+  margin-bottom: clamp(2rem, 1.5rem + 1.5vw, 3rem);
+}
+
+.reviews__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.6rem, 1.3rem + 1vw, 2.2rem);
+  overflow: hidden;
+}
+
+.reviews__card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+  border-color: var(--champagne);
+}
+
+.reviews__quote {
+  position: absolute;
+  top: 1rem;
+  right: 1.1rem;
+  color: var(--champagne);
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.reviews__text {
+  flex: 1;
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.72;
+  color: var(--ink-soft);
+  margin-bottom: 1.3rem;
+}
+
+/* Las tarjetas de maqueta van en cursiva y algo más apagadas: a simple
+   vista se distingue que ese texto todavía no es una reseña real. */
+.reviews__card.is-placeholder .reviews__text {
+  font-style: italic;
+  color: var(--ink-muted);
+}
+
+.reviews__author {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.reviews__avatar {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--white);
+  background: var(--grad-gold);
+}
+
+.reviews__name {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.reviews__card.is-placeholder .reviews__name {
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+/* ── Enlace a Google ───────────────────────────────────────────────────── */
+
+.reviews__cta-wrap {
+  text-align: center;
+}

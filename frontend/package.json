@@ -1,0 +1,28 @@
+{
+  "name": "ximena-paez-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Landing page de propuesta para Dra. Ximena Paez - Odontologia integral y estetica, Ubate",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "images": "node scripts/build-images.mjs",
+    "logo": "node scripts/build-logo.mjs"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "potrace": "^2.1.8",
+    "sharp": "^0.34.3",
+    "vite": "^5.4.11"
+  },
+  "allowScripts": {
+    "sharp@0.34.5": true,
+    "esbuild@0.21.5": true
+  }
+}

@@ -1,0 +1,173 @@
+.contact {
+  background: linear-gradient(180deg, var(--ivory) 0%, var(--white) 100%);
+}
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(1.6rem, 1rem + 2.6vw, 3.2rem);
+  align-items: start;
+}
+
+/* ── Canales ───────────────────────────────────────────────────────────── */
+
+.contact__channels ul {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.contact__link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--white);
+  box-shadow: var(--shadow-xs);
+  transition: transform var(--t) var(--ease-out), border-color var(--t) var(--ease-out),
+    box-shadow var(--t) var(--ease-out);
+}
+
+.contact__link:hover {
+  transform: translateX(5px);
+  border-color: var(--champagne);
+  box-shadow: var(--shadow-sm);
+}
+
+.contact__icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  color: var(--gold-deep);
+  background: linear-gradient(135deg, var(--champagne-soft) 0%, var(--ivory) 100%);
+  border: 1px solid var(--border);
+  transition: color var(--t) var(--ease-out), background var(--t) var(--ease-out),
+    border-color var(--t) var(--ease-out);
+}
+
+.contact__link:hover .contact__icon {
+  color: var(--white);
+  background: var(--grad-gold);
+  border-color: transparent;
+}
+
+.contact__body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.contact__label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+.contact__value {
+  font-size: 0.96rem;
+  font-weight: 400;
+  color: var(--ink);
+  /* Los correos largos no deben desbordar en móvil. */
+  overflow-wrap: anywhere;
+}
+
+.contact__arrow {
+  flex-shrink: 0;
+  color: var(--gold-pale);
+  transform: translateX(-4px);
+  opacity: 0;
+  transition: transform var(--t) var(--ease-out), opacity var(--t) var(--ease-out);
+}
+
+.contact__link:hover .contact__arrow {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* ── Nota de horario ───────────────────────────────────────────────────── */
+
+.contact__schedule {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 1.1rem;
+  padding: 1rem 1.2rem;
+  border-radius: var(--radius);
+  border: 1px dashed var(--champagne);
+  background: var(--ivory);
+  font-size: 0.89rem;
+  font-weight: 300;
+  line-height: 1.62;
+  color: var(--ink-soft);
+}
+
+.contact__schedule-icon {
+  flex-shrink: 0;
+  color: var(--gold-deep);
+  margin-top: 0.15rem;
+}
+
+/* ── Mapa ──────────────────────────────────────────────────────────────── */
+
+.contact__map {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--champagne);
+  box-shadow: var(--shadow);
+  background: var(--ivory-deep);
+}
+
+.contact__map iframe {
+  display: block;
+  width: 100%;
+  height: clamp(320px, 42vw, 460px);
+  border: 0;
+  /* El mapa de Google llega muy saturado para esta paleta: se baja un punto
+     para que no compita con el dorado. */
+  filter: saturate(0.82) contrast(0.97);
+}
+
+.contact__map-cta {
+  position: absolute;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  box-shadow: var(--shadow-sm);
+}
+
+.contact__map-cta:hover {
+  transform: translateX(-50%) translateY(-2px);
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────── */
+
+@media (max-width: 860px) {
+  .contact__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact__link {
+    padding: 0.85rem 0.95rem;
+    gap: 0.75rem;
+  }
+
+  .contact__icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .contact__value {
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,86 @@
+.wa-float {
+  position: fixed;
+  right: clamp(1rem, 0.6rem + 1vw, 1.8rem);
+  bottom: clamp(1rem, 0.6rem + 1vw, 1.8rem);
+  z-index: 1150;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.5rem;
+  border-radius: var(--radius-pill);
+  color: var(--white);
+  background: linear-gradient(135deg, var(--wa) 0%, var(--wa-deep) 100%);
+  box-shadow: var(--shadow-wa);
+  transition: transform var(--t) var(--ease-out), box-shadow var(--t) var(--ease-out),
+    padding-right var(--t) var(--ease-out);
+}
+
+.wa-float:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 38px rgba(18, 140, 126, 0.46);
+  padding-right: 1.25rem;
+}
+
+.wa-float__icon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* La etiqueta se despliega al pasar el cursor (en escritorio). */
+.wa-float__label {
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  font-weight: 500;
+  opacity: 0;
+  transition: max-width var(--t) var(--ease-out), opacity var(--t) var(--ease-out);
+}
+
+.wa-float:hover .wa-float__label,
+.wa-float:focus-visible .wa-float__label {
+  max-width: 9rem;
+  opacity: 1;
+}
+
+/* ── Pulso ─────────────────────────────────────────────────────────────── */
+
+.wa-float__pulse {
+  position: absolute;
+  left: 0.5rem;
+  top: 0.5rem;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--wa);
+  animation: waPulse 2.8s var(--ease-soft) infinite;
+  pointer-events: none;
+}
+
+.wa-float__pulse--2 {
+  animation-delay: 1.4s;
+}
+
+@media (max-width: 560px) {
+  .wa-float__icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .wa-float__pulse {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* En móvil no hay hover: la etiqueta nunca se abre y sobra el espacio. */
+  .wa-float__label {
+    display: none;
+  }
+}

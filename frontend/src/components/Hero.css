@@ -1,0 +1,276 @@
+/* ───────────────────────────────────────────────────────────────────────────
+   Hero
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.hero {
+  position: relative;
+  /* Sin z-index ni transform: la foto necesita "ver" este fondo para que
+     `mix-blend-mode: multiply` borre su blanco. */
+  overflow: hidden;
+  min-height: min(100svh, 860px);
+  display: flex;
+  align-items: center;
+  padding-top: calc(var(--nav-h) + clamp(1.5rem, 1rem + 3vw, 3.5rem));
+  padding-bottom: clamp(3rem, 2rem + 4vw, 5.5rem);
+  background: radial-gradient(
+      120% 90% at 78% 42%,
+      var(--white) 0%,
+      var(--white) 38%,
+      var(--ivory) 72%
+    ),
+    var(--ivory);
+}
+
+/* Remate inferior: funde el hero con la franja de confianza. */
+.hero::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 130px;
+  background: linear-gradient(180deg, rgba(251, 248, 243, 0) 0%, var(--ivory) 88%);
+  pointer-events: none;
+}
+
+/* ── Capa de fondo ─────────────────────────────────────────────────────── */
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Los destellos se quedan en el lado del texto: detrás de la foto se verían
+   a través del blanco multiplicado. */
+.hero__sparkles {
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 34%, transparent 58%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 34%, transparent 58%);
+}
+
+/* ── Foto ──────────────────────────────────────────────────────────────── */
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* Deliberadamente sin `z-index`, `transform` ni `opacity`. */
+}
+
+.hero__photo {
+  position: absolute;
+  right: -2%;
+  bottom: -4%;
+  width: min(62%, 1000px);
+  height: auto;
+
+  /* 1) El fondo del original es blanco puro (255,255,255) y uniforme:
+        multiplicado por el fondo de la sección devuelve ese mismo fondo,
+        así que el rectángulo desaparece por completo. */
+  mix-blend-mode: multiply;
+
+  /* 2) Las máscaras suavizan los bordes donde la foto viene recortada.
+        Dos capas que se cruzan: `intersect` deja visible solo lo que las dos
+        dejan ver. Si el navegador no entendiera `mask-composite`, las capas
+        se suman y el degradado es menos marcado, nunca un borde duro. */
+  --mask-x: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.55) 14%, #000 34%);
+  --mask-y: linear-gradient(180deg, transparent 0%, #000 14%, #000 76%, transparent 99%);
+  -webkit-mask-image: var(--mask-x), var(--mask-y);
+  mask-image: var(--mask-x), var(--mask-y);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+
+  /* Entrada: `scale` y `opacity` como propiedades independientes, para no
+     pisar el `translate` del parallax que llega por `style`. */
+  opacity: 0;
+  animation: heroPhotoIn 1.5s var(--ease-out) 140ms forwards;
+  will-change: opacity, scale, translate;
+}
+
+@keyframes heroPhotoIn {
+  from {
+    opacity: 0;
+    scale: 1.07;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+/* ── Texto ─────────────────────────────────────────────────────────────── */
+
+.hero__inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.hero__content {
+  max-width: 34rem;
+}
+
+.hero__badge {
+  display: inline-block;
+  padding: 0.42rem 1.05rem;
+  margin-bottom: clamp(1.1rem, 0.8rem + 1vw, 1.7rem);
+  border: 1px solid var(--champagne);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.72);
+  font-size: var(--fs-eyebrow);
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  box-shadow: var(--shadow-xs);
+}
+
+.hero__title {
+  font-size: var(--fs-h1);
+  font-weight: 300;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  margin-bottom: clamp(1rem, 0.7rem + 1vw, 1.6rem);
+}
+
+/* Cada tramo entra por separado, así que necesitan ser bloques en línea. */
+.hero__title > span {
+  display: inline;
+}
+
+.hero__title-script {
+  font-size: 1.16em;
+  /* La script se apoya más abajo que la serif: este ajuste alinea las bases. */
+  line-height: 0.9;
+  margin-right: 0.12em;
+}
+
+.hero__subtitle {
+  font-size: var(--fs-lead);
+  font-weight: 300;
+  color: var(--ink-soft);
+  max-width: 33rem;
+  margin-bottom: clamp(1.6rem, 1.2rem + 1.4vw, 2.4rem);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+/* ── Flecha de scroll ──────────────────────────────────────────────────── */
+
+.hero__cue {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  margin-left: -23px;
+  border: 1px solid var(--champagne);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--gold-deep);
+  box-shadow: var(--shadow-xs);
+  animation: heroCue 2.6s var(--ease-soft) infinite;
+  transition: background-color var(--t-fast) var(--ease-out),
+    border-color var(--t-fast) var(--ease-out);
+}
+
+.hero__cue:hover {
+  background: var(--white);
+  border-color: var(--gold);
+}
+
+@keyframes heroCue {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(7px);
+  }
+}
+
+/* ── Tablet y móvil ────────────────────────────────────────────────────── */
+
+@media (max-width: 980px) {
+  .hero {
+    min-height: 0;
+    /* La foto pasa a ser un hermano en flujo, encima del texto. */
+    flex-direction: column;
+    align-items: stretch;
+    padding-top: calc(var(--nav-h) + 0.5rem);
+    /* Deja sitio arriba para la foto, que pasa a ocupar el ancho completo. */
+    padding-bottom: clamp(2.5rem, 2rem + 3vw, 4rem);
+    background: radial-gradient(
+        120% 60% at 62% 14%,
+        var(--white) 0%,
+        var(--white) 42%,
+        var(--ivory) 78%
+      ),
+      var(--ivory);
+  }
+
+  .hero__media {
+    position: relative;
+    inset: auto;
+    height: clamp(230px, 52vw, 400px);
+    margin-bottom: clamp(0.5rem, 0.2rem + 1.5vw, 1.5rem);
+  }
+
+  .hero__photo {
+    right: -6%;
+    bottom: auto;
+    top: 0;
+    width: min(104%, 620px);
+
+    /* En vertical la foto se funde hacia abajo, contra el texto. El tramo
+       de arriba también se suaviza: el original viene recortado justo sobre
+       la nariz y, sin el degradado, deja un corte recto bajo la barra. */
+    --mask-x: linear-gradient(90deg, transparent 0%, #000 22%);
+    --mask-y: linear-gradient(180deg, transparent 0%, #000 12%, #000 58%, transparent 96%);
+  }
+
+  .hero__sparkles {
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 46%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 46%);
+  }
+
+  .hero__content {
+    max-width: none;
+  }
+
+  .hero__cue {
+    display: none;
+  }
+
+  .hero::after {
+    height: 80px;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero__actions .btn {
+    width: 100%;
+  }
+
+  .hero__subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__photo {
+    opacity: 1;
+    animation: none;
+  }
+
+  .hero__cue {
+    animation: none;
+  }
+}

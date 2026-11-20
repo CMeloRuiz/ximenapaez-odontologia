@@ -1,0 +1,55 @@
+.sec-head {
+  position: relative;
+  z-index: 1;
+  margin-bottom: clamp(2.4rem, 1.6rem + 2.4vw, 4rem);
+}
+
+.sec-head--center {
+  text-align: center;
+}
+
+.sec-head__eyebrow {
+  margin-bottom: 0.9rem;
+}
+
+.sec-head__title {
+  font-size: var(--fs-h2);
+  font-weight: 400;
+  margin-bottom: 1.15rem;
+}
+
+/* La script va un punto por encima de la serif para igualar su peso óptico. */
+.sec-head__script {
+  font-size: 1.05em;
+  display: inline-block;
+}
+
+.sec-head__line-wrap {
+  margin-bottom: 1.3rem;
+}
+
+.sec-head__text {
+  max-width: 62ch;
+}
+
+.sec-head--center .sec-head__text {
+  margin-inline: auto;
+}
+
+/* ── Sobre fondo oscuro ────────────────────────────────────────────────── */
+
+.sec-head--dark .sec-head__title {
+  color: var(--ivory);
+}
+
+.sec-head--dark .sec-head__eyebrow {
+  color: var(--gold-pale);
+}
+
+.sec-head--dark .sec-head__script {
+  color: var(--gold-light);
+}
+
+.sec-head--dark .sec-head__text {
+  color: var(--ink-on-dark-soft);
+}

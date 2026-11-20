@@ -1,0 +1,114 @@
+.steps {
+  background: var(--ivory);
+}
+
+.steps__list {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(1.8rem, 1.2rem + 2vw, 3rem);
+  counter-reset: step;
+}
+
+/* Hilo dorado que une los tres pasos en escritorio. */
+.steps__list::before {
+  content: '';
+  position: absolute;
+  top: 37px;
+  left: 16%;
+  right: 16%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gold-pale) 18%,
+    var(--gold-pale) 82%,
+    transparent 100%
+  );
+}
+
+.steps__item {
+  position: relative;
+  text-align: center;
+}
+
+/* ── Marcador ──────────────────────────────────────────────────────────── */
+
+.steps__marker {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 74px;
+  height: 74px;
+  margin-bottom: 1.2rem;
+  border-radius: 50%;
+  color: var(--gold-deep);
+  background: var(--white);
+  border: 1px solid var(--champagne);
+  box-shadow: var(--shadow-xs);
+  transition: transform var(--t) var(--ease-out), box-shadow var(--t) var(--ease-out),
+    color var(--t) var(--ease-out), background var(--t) var(--ease-out);
+}
+
+.steps__item:hover .steps__marker {
+  transform: translateY(-4px);
+  color: var(--white);
+  background: var(--grad-gold);
+  box-shadow: var(--shadow-gold);
+}
+
+.steps__icon {
+  display: grid;
+  place-items: center;
+}
+
+/* Número en una pastilla pegada al borde del círculo. */
+.steps__number {
+  position: absolute;
+  top: -6px;
+  right: -4px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-family: var(--font-serif);
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--white);
+  background: var(--grad-gold);
+  border: 2px solid var(--ivory);
+}
+
+/* ── Texto ─────────────────────────────────────────────────────────────── */
+
+.steps__title {
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.steps__text {
+  font-size: 0.92rem;
+  font-weight: 300;
+  line-height: 1.68;
+  color: var(--ink-soft);
+  max-width: 32ch;
+  margin-inline: auto;
+}
+
+/* ── Llamada a la acción ───────────────────────────────────────────────── */
+
+.steps__cta {
+  margin-top: clamp(2.2rem, 1.6rem + 2vw, 3.4rem);
+  text-align: center;
+}
+
+/* El hilo solo tiene sentido con los tres pasos en una fila: en cuanto la
+   rejilla se parte en dos columnas, deja de unir nada. */
+@media (max-width: 900px) {
+  .steps__list::before {
+    display: none;
+  }
+}

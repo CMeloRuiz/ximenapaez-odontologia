@@ -1,0 +1,36 @@
+.sparkles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sparkles__dot {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  animation-name: goldDrift;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+/* Destellos champagne sobre marfil. */
+.sparkles--warm .sparkles__dot {
+  background: radial-gradient(
+    circle at 32% 30%,
+    rgba(255, 252, 245, 0.95) 0%,
+    rgba(233, 220, 195, 0.62) 44%,
+    rgba(201, 162, 95, 0) 74%
+  );
+}
+
+/* Destellos dorados sobre fondo espresso. */
+.sparkles--dark .sparkles__dot {
+  background: radial-gradient(
+    circle at 32% 30%,
+    rgba(240, 225, 195, 0.6) 0%,
+    rgba(201, 162, 95, 0.4) 44%,
+    rgba(166, 124, 61, 0) 74%
+  );
+}

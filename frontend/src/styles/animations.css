@@ -1,0 +1,192 @@
+/* ───────────────────────────────────────────────────────────────────────────
+   Dra. Ximena Páez — sistema de animaciones
+   Solo se animan `transform` y `opacity` para mantener el scroll fluido.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* ── Aparición al hacer scroll (componente <Reveal>) ───────────────────── */
+
+.reveal {
+  opacity: 0;
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal--fade-up {
+  transform: translate3d(0, 36px, 0);
+}
+
+.reveal--fade-down {
+  transform: translate3d(0, -28px, 0);
+}
+
+.reveal--fade-left {
+  transform: translate3d(-44px, 0, 0);
+}
+
+.reveal--fade-right {
+  transform: translate3d(44px, 0, 0);
+}
+
+.reveal--zoom-in {
+  transform: scale(0.9);
+}
+
+.reveal--zoom-out {
+  transform: scale(1.07);
+}
+
+.reveal--fade {
+  transform: none;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* Una vez terminada la entrada no hace falta seguir reservando capa. */
+.reveal.is-settled {
+  will-change: auto;
+}
+
+/* En pantallas angostas el desplazamiento lateral se cambia por vertical:
+   evita cualquier desbordamiento mientras el elemento está fuera de sitio. */
+@media (max-width: 760px) {
+  .reveal--fade-left,
+  .reveal--fade-right {
+    transform: translate3d(0, 30px, 0);
+  }
+}
+
+/* ── Línea dorada que se "dibuja" bajo los títulos ─────────────────────── */
+
+.draw-line {
+  display: block;
+  height: 2px;
+  width: 104px;
+  border-radius: var(--radius-pill);
+  background: var(--grad-line);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 1s var(--ease-out) 0.2s;
+}
+
+.is-visible .draw-line,
+.draw-line.is-visible {
+  transform: scaleX(1);
+}
+
+.draw-line--center {
+  margin-inline: auto;
+  transform-origin: center;
+}
+
+/* ── Entrada del hero al cargar ────────────────────────────────────────── */
+
+@keyframes heroRise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes heroZoomOut {
+  from {
+    opacity: 0;
+    transform: scale(1.09);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.anim-rise {
+  opacity: 0;
+  animation: heroRise 1s var(--ease-out) forwards;
+  animation-delay: var(--anim-delay, 0ms);
+}
+
+.anim-zoom-out {
+  opacity: 0;
+  animation: heroZoomOut 1.4s var(--ease-out) forwards;
+  animation-delay: var(--anim-delay, 0ms);
+}
+
+/* ── Flotación continua de los destellos dorados ───────────────────────── */
+
+@keyframes goldDrift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(12px, -22px, 0) scale(1.07);
+  }
+  66% {
+    transform: translate3d(-9px, -9px, 0) scale(0.96);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+/* ── Pulso del botón de WhatsApp ───────────────────────────────────────── */
+
+@keyframes waPulse {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.55;
+  }
+  70% {
+    transform: scale(1.75);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.75);
+    opacity: 0;
+  }
+}
+
+/* ── Preferencia de movimiento reducido ────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* El contenido sigue siendo visible: solo desaparece el movimiento. */
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .draw-line {
+    transform: scaleX(1) !important;
+    transition: none !important;
+  }
+
+  .anim-rise,
+  .anim-zoom-out {
+    opacity: 1;
+    animation: none !important;
+  }
+
+  .sparkles__dot,
+  .wa-float__pulse {
+    animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

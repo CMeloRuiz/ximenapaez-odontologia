@@ -1,0 +1,7 @@
+# Sitio de propuesta (demo). No debe indexarse mientras sea una maqueta.
+# Cuando el consultorio apruebe la web y pase a su dominio definitivo:
+#   1. borra el bloque Disallow de abajo,
+#   2. quita las metas "noindex, nofollow" de index.html,
+#   3. añade la línea Sitemap.
+User-agent: *
+Disallow: /

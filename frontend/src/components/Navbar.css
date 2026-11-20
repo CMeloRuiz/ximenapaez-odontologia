@@ -1,0 +1,229 @@
+/* ───────────────────────────────────────────────────────────────────────────
+   Barra fija: transparente sobre el hero, marfil translúcido al bajar.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1100;
+  transition: background-color var(--t) var(--ease-out),
+    box-shadow var(--t) var(--ease-out), backdrop-filter var(--t) var(--ease-out);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: var(--nav-h);
+}
+
+/* ── Estado fijado ─────────────────────────────────────────────────────── */
+
+.nav--solid,
+.nav--open {
+  background: rgba(251, 248, 243, 0.86);
+  backdrop-filter: blur(14px) saturate(1.1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  box-shadow: 0 1px 0 rgba(233, 220, 195, 0.9), 0 10px 30px rgba(93, 70, 35, 0.07);
+}
+
+/* ── Marca ─────────────────────────────────────────────────────────────── */
+
+.nav__brand {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-right: auto;
+  border-radius: 8px;
+}
+
+/* ── Enlaces ───────────────────────────────────────────────────────────── */
+
+.nav__links ul {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 0.3rem + 1.5vw, 2rem);
+}
+
+.nav__link {
+  position: relative;
+  display: inline-block;
+  padding: 0.4rem 0;
+  font-size: 0.92rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+  transition: color var(--t-fast) var(--ease-out);
+}
+
+/* Subrayado dorado que crece desde el centro. */
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1.5px;
+  border-radius: var(--radius-pill);
+  background: var(--grad-line);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--t) var(--ease-out);
+}
+
+.nav__link:hover,
+.nav__link.is-active {
+  color: var(--gold-deep);
+}
+
+.nav__link:hover::after,
+.nav__link.is-active::after {
+  transform: scaleX(1);
+}
+
+/* ── Botón de cita ─────────────────────────────────────────────────────── */
+
+.nav__cta {
+  flex-shrink: 0;
+}
+
+/* ── Hamburguesa ───────────────────────────────────────────────────────── */
+
+.nav__burger {
+  display: none;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.nav__burger span {
+  position: absolute;
+  left: 50%;
+  display: block;
+  width: 22px;
+  height: 1.8px;
+  margin-left: -11px;
+  border-radius: var(--radius-pill);
+  background: var(--gold-deep);
+  transition: transform var(--t) var(--ease-out), opacity var(--t-fast) var(--ease-out);
+}
+
+.nav__burger span:nth-child(1) {
+  top: 15px;
+}
+
+.nav__burger span:nth-child(2) {
+  top: 21px;
+}
+
+.nav__burger span:nth-child(3) {
+  top: 27px;
+}
+
+.nav__burger.is-open span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.nav__burger.is-open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0.4);
+}
+
+.nav__burger.is-open span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* ── Panel móvil ───────────────────────────────────────────────────────── */
+
+.nav__panel {
+  display: none;
+}
+
+.nav__scrim {
+  display: none;
+}
+
+@media (max-width: 980px) {
+  .nav__links,
+  .nav__cta {
+    display: none;
+  }
+
+  .nav__burger {
+    display: block;
+    z-index: 2;
+  }
+
+  .nav__panel {
+    display: block;
+    position: relative;
+    z-index: 1;
+    padding: 0.5rem var(--gutter) 2rem;
+    background: rgba(251, 248, 243, 0.97);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 24px 40px rgba(93, 70, 35, 0.12);
+  }
+
+  .nav__panel[hidden] {
+    display: none;
+  }
+
+  .nav__panel-list {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.4rem;
+  }
+
+  .nav__panel-list li {
+    /* Entrada escalonada: cada enlace llega un poco después del anterior. */
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: heroRise 0.45s var(--ease-out) forwards;
+    animation-delay: calc(var(--i) * 55ms + 60ms);
+  }
+
+  .nav__panel-link {
+    display: block;
+    padding: 0.85rem 0.2rem;
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--ink);
+    border-bottom: 1px solid var(--border);
+    transition: color var(--t-fast) var(--ease-out), padding-left var(--t-fast) var(--ease-out);
+  }
+
+  .nav__panel-link:hover,
+  .nav__panel-link.is-active {
+    color: var(--gold-deep);
+    padding-left: 0.5rem;
+  }
+
+  .nav__panel-cta {
+    width: 100%;
+  }
+
+  .nav__panel-meta {
+    margin-top: 1.1rem;
+    font-size: 0.84rem;
+    line-height: 1.6;
+    color: var(--ink-muted);
+    text-align: center;
+  }
+
+  .nav__scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: rgba(43, 38, 34, 0.32);
+    border: 0;
+    cursor: default;
+  }
+}
